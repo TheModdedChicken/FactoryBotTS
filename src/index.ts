@@ -1,12 +1,14 @@
 import fs from 'fs'
 import path from 'path'
 import dotenv from 'dotenv'
+import express from 'express'
 import { Client, Collection, Intents, MessageEmbed } from 'discord.js'
 import Util from './utility'
 import { SlashCommandHandler } from 'tmc-djs-util'
 
 /* Pre Processes */
 dotenv.config();
+const app = express();
 
 //
 
@@ -21,6 +23,12 @@ if (!guild_id) throw new Error("Cannot find guild id");
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS] });
 const port = process.env.PORT || 6558;
+
+app.get('/ping', (req, res) => {
+	res.send("Pong!")
+})
+
+app.listen(port)
 
 
 /* Main Process */
